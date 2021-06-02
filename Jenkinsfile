@@ -1,22 +1,15 @@
 pipeline {
-
-  agent any
-  
-  stages {
-		stage("build") {
+	agent any
+	stages {
+		stage("run frontend") {
 			steps {
-				echo 'building the application ... '
-				echo 'Application built ...'
+				echo 'executing yarm ... '
+				nodejs('')
 			}
 		}		
-		stage("test") {
+		stage("run backend") {
 			steps {
-				  echo 'testing the application ... '
-			}
-		}
-		stage("deploy") {
-			steps {
-				echo 'deploying the application ... '
+				echo 'executing gradle ... '
 			}
 		}
 	}
