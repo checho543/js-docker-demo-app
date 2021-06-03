@@ -3,8 +3,10 @@ pipeline {
 	stages {
 		stage("run frontend") {
 			steps {
-				echo 'executing yarm ... '
-
+				echo 'executing yarn ... '
+				nodejs('Node-10.17') {
+					sh 'yarn install'
+				}
 			}
 		}		
 		stage("run backend") {
