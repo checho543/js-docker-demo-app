@@ -1,23 +1,29 @@
 pipeline {
 	agent any
+    parameters { 
+        choice(name: 'Version', choices: ['1.1.0', '1.1.2', '1.1.5'], description: '')
+        booleanParam(name: ' executeTests', defaultValue: true, description: '')
+    }
 	stages {
-		stage("run frontend") {
+		stage("build") {
 			steps {
-				echo 'executing yarn ... '
-				nodejs('Node-10.17') {
-					sh 'yarn install'
-				}
+				echo 'building the application ... '
 			}
 		}		
-		stage("run backend") {
+		stage("test") {
+            when {
+                expression {
+                    params.executeTests == true
+                }
+            }
 			steps {
-				script {
-				    def version = sh (
-					script: "./gradlew properties -q | grep \"version:\" | awk '{print \$2}'",
-					returnStdout: true
-				    ).trim()
-				    sh "echo Building project in version: $version"
-				}
+				echo 'testing the application ... '
+			}
+		}
+		stage("deploy") {
+			steps {
+				echo 'deploying the application ... '
+                echo "deploying version ${params.Version}"
 			}
 		}
 	}
