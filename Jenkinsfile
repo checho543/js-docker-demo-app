@@ -4,9 +4,7 @@ pipeline {
 		stage("run frontend") {
 			steps {
 				echo 'executing yarm ... '
-				nodejs('Node-10.17') {
-					sh 'yarm install'
-				}
+
 			}
 		}		
 		stage("run backend") {
