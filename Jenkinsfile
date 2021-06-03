@@ -11,11 +11,14 @@ pipeline {
 		}		
 		stage("run backend") {
 			steps {
-				echo 'executing gradle ... '
-				withGradle() {
-					sh './gradle -v'
+				script {
+				    def version = sh (
+					script: "./gradlew properties -q | grep \"version:\" | awk '{print \$2}'",
+					returnStdout: true
+				    ).trim()
+				    sh "echo Building project in version: $version"
+
 				}
-			}
 		}
 	}
 }
