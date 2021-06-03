@@ -17,8 +17,8 @@ pipeline {
 					returnStdout: true
 				    ).trim()
 				    sh "echo Building project in version: $version"
-
 				}
+			}
 		}
 	}
 }
